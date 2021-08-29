@@ -57,3 +57,25 @@ Note: If you've written your search code generically, your code should work equa
 #+end_quote
 
 It does!
+
+* Question 3 (3 points): Varying the Cost Function
+Continued using the same generic problem search function used in questions 1
+and 2. In this one, I created a class that inherited from
+`PriorityQueueWithFunction` to define a priority function that extracted the
+edge's cost from the candidates on the fringe.
+
+One thing I was doing wrong and the (fantastic) autograder caught, is that, the
+cost to be input on the priority queue, needs to be the entire backwards cost to
+reach that node, and not just from the previous node.
+
+#+begin_quote
+You should now observe successful behavior in all three of the following layouts, where the agents below are all UCS agents that differ only in the cost function they use (the agents and cost functions are written for you):
+#+end_quote
+
+Yep.
+
+#+begin_quote
+Note: You should get very low and very high path costs for the StayEastSearchAgent and StayWestSearchAgent respectively, due to their exponential cost functions (see searchAgents.py for details).
+#+end_quote
+
+Got it.

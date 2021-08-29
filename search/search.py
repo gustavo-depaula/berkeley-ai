@@ -135,10 +135,23 @@ def breadthFirstSearch(problem):
     return genericProblemSearch(problem, util.Queue)
 
 
+def getBackwardsCosts(candidate):
+    getCost = lambda t: t[2]
+    allCosts = [getCost(t) for t in candidate]
+    return sum(allCosts)
+
+
 def uniformCostSearch(problem):
     """Search the node of least total cost first."""
-    "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+
+    def priorityFunction(candidate):
+        return getBackwardsCosts(candidate)
+
+    class PriorityQueue(util.PriorityQueueWithFunction):
+        def __init__(self):
+            util.PriorityQueueWithFunction.__init__(self, priorityFunction)
+
+    return genericProblemSearch(problem, PriorityQueue)
 
 
 def nullHeuristic(state, problem=None):
