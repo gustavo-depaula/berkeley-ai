@@ -77,8 +77,8 @@ def tinyMazeSearch(problem):
 
 def genericProblemSearch(problem, fringeDataStructure):
     startingNode = problem.getStartState()
-    visitedNodes = []
-    visitNode = lambda node: visitedNodes.append(node)
+    visitedNodes = set()
+    visitNode = lambda node: visitedNodes.add(node)
     hasVisitedNode = lambda node: node in visitedNodes
 
     isTargetNode = lambda node: problem.isGoalState(node)
