@@ -20,3 +20,8 @@ python pacman.py -l testSearch -p AStarFoodSearchAgent
 python pacman.py -l trickySearch -p AStarFoodSearchAgent
 python pacman.py -l bigSearch -p ClosestDotSearchAgent -z .5 
 python pacman.py -l bigSearch -p ApproximateSearchAgent -z .5 -q 
+
+python pacman.py -l openMaze -z .5 -p SearchAgent -a fn=dfs --frameTime 0.05
+python pacman.py -l openMaze -z .5 -p SearchAgent -a fn=bfs --frameTime 0.05
+python pacman.py -l openMaze -z .5 -p SearchAgent -a fn=ucs --frameTime 0.05
+python pacman.py -l openMaze -z .5 -p SearchAgent -a fn=astar,heuristic=manhattanHeuristic --frameTime 0.05

@@ -164,8 +164,19 @@ def nullHeuristic(state, problem=None):
 
 def aStarSearch(problem, heuristic=nullHeuristic):
     """Search the node that has the lowest combined cost and heuristic first."""
-    "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+
+    def priorityFunction(candidate):
+        backwardCost = getBackwardsCosts(candidate)
+
+        node = candidate[-1][0]
+        forwardCost = heuristic(node, problem)
+        return backwardCost + forwardCost
+
+    class PriorityQueue(util.PriorityQueueWithFunction):
+        def __init__(self):
+            util.PriorityQueueWithFunction.__init__(self, priorityFunction)
+
+    return genericProblemSearch(problem, PriorityQueue)
 
 
 # Abbreviations
