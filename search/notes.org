@@ -1,0 +1,35 @@
+#+TITLE: Notes
+
+* Question 1 (3 points): Finding a Fixed Food Dot using Depth First Search
+My solution includes first some helper functions, which abstract some of the
+implementation details specific to this problem. Then, I create the fringe as a
+stack. The contents of the stack will be lists of tuples. These tuples are the
+shape of the successors returned by `problem.getSuccessors`. Each list (item on
+the stack) represents a possible candidate path.
+
+e.g. successful path of the medium sized maze
+#+begin_quote
+[((34, 16), 'None', 1), ((33, 16), 'West', 1), ((32, 16), 'West', 1), ((31, 16), 'West', 1), ((30, 16), 'West', 1), ((29, 16), 'West', 1), ((28, 16), 'West', 1), ((27, 16), 'West', 1), ((26, 16), 'West', 1), ((25, 16), 'West', 1), ((24, 16), 'West', 1), ((23, 16), 'West', 1), ((22, 16), 'West', 1), ((21, 16), 'West', 1), ((20, 16), 'West', 1), ((19, 16), 'West', 1), ((18, 16), 'West', 1), ((17, 16), 'West', 1), ((16, 16), 'West', 1), ((15, 16), 'West', 1), ((14, 16), 'West', 1), ((13, 16), 'West', 1), ((12, 16), 'West', 1), ((11, 16), 'West', 1), ((10, 16), 'West', 1), ((9, 16), 'West', 1), ((8, 16), 'West', 1), ((7, 16), 'West', 1), ((6, 16), 'West', 1), ((5, 16), 'West', 1), ((4, 16), 'West', 1), ((3, 16), 'West', 1), ((2, 16), 'West', 1), ((1, 16), 'West', 1), ((1, 15), 'South', 1), ((1, 14), 'South', 1), ((1, 13), 'South', 1), ((1, 12), 'South', 1), ((1, 11), 'South', 1), ((1, 10), 'South', 1), ((1, 9), 'South', 1), ((1, 8), 'South', 1), ((1, 7), 'South', 1), ((2, 7), 'East', 1), ((3, 7), 'East', 1), ((4, 7), 'East', 1), ((4, 8), 'North', 1), ((4, 9), 'North', 1), ((4, 10), 'North', 1), ((4, 11), 'North', 1), ((4, 12), 'North', 1), ((4, 13), 'North', 1), ((4, 14), 'North', 1), ((5, 14), 'East', 1), ((6, 14), 'East', 1), ((6, 13), 'South', 1), ((6, 12), 'South', 1), ((6, 11), 'South', 1), ((6, 10), 'South', 1), ((6, 9), 'South', 1), ((6, 8), 'South', 1), ((7, 8), 'East', 1), ((8, 8), 'East', 1), ((8, 9), 'North', 1), ((8, 10), 'North', 1), ((8, 11), 'North', 1), ((8, 12), 'North', 1), ((8, 13), 'North', 1), ((8, 14), 'North', 1), ((9, 14), 'East', 1), ((10, 14), 'East', 1), ((10, 13), 'South', 1), ((10, 12), 'South', 1), ((10, 11), 'South', 1), ((10, 10), 'South', 1), ((11, 10), 'East', 1), ((12, 10), 'East', 1), ((12, 11), 'North', 1), ((12, 12), 'North', 1), ((13, 12), 'East', 1), ((14, 12), 'East', 1), ((15, 12), 'East', 1), ((16, 12), 'East', 1), ((17, 12), 'East', 1), ((18, 12), 'East', 1), ((19, 12), 'East', 1), ((20, 12), 'East', 1), ((20, 11), 'South', 1), ((20, 10), 'South', 1), ((20, 9), 'South', 1), ((21, 9), 'East', 1), ((22, 9), 'East', 1), ((23, 9), 'East', 1), ((24, 9), 'East', 1), ((25, 9), 'East', 1), ((26, 9), 'East', 1), ((27, 9), 'East', 1), ((27, 8), 'South', 1), ((27, 7), 'South', 1), ((27, 6), 'South', 1), ((27, 5), 'South', 1), ((27, 4), 'South', 1), ((27, 3), 'South', 1), ((27, 2), 'South', 1), ((26, 2), 'West', 1), ((25, 2), 'West', 1), ((24, 2), 'West', 1), ((23, 2), 'West', 1), ((22, 2), 'West', 1), ((21, 2), 'West', 1), ((20, 2), 'West', 1), ((19, 2), 'West', 1), ((18, 2), 'West', 1), ((17, 2), 'West', 1), ((16, 2), 'West', 1), ((15, 2), 'West', 1), ((14, 2), 'West', 1), ((13, 2), 'West', 1), ((12, 2), 'West', 1), ((11, 2), 'West', 1), ((10, 2), 'West', 1), ((10, 1), 'South', 1), ((9, 1), 'West', 1), ((8, 1), 'West', 1), ((7, 1), 'West', 1), ((6, 1), 'West', 1), ((5, 1), 'West', 1), ((4, 1), 'West', 1), ((3, 1), 'West', 1), ((2, 1), 'West', 1), ((1, 1), 'West', 1)]
+#+end_quote
+
+#+begin_quote
+Is the exploration order what you would have expected?
+#+end_quote
+
+Yes, it always explore the left-most paths first.
+
+#+begin_quote
+Does Pacman actually go to all the explored squares on his way to the goal?
+#+end_quote
+
+No, because only the success path is returned. An addition may be added to the
+algorithm so the Pacman visits every visited node. The only thing you gotta do
+is push the movement to go to the visited node and if it fails, you push the
+reverse movement so it goes back.
+
+#+begin_quote
+Hint: If you use a Stack as your data structure, the solution found by your DFS algorithm for mediumMaze should have a length of 130 (provided you push successors onto the fringe in the order provided by getSuccessors; you might get 246 if you push them in the reverse order). Is this a least cost solution? If not, think about what depth-first search is doing wrong.
+#+end_quote
+
+DFS always return the left-most solution, not the optimal solution, that's what
+it's "doing wrong" (not getting the most optimal path).
