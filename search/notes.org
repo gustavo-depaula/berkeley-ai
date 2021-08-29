@@ -33,3 +33,27 @@ Hint: If you use a Stack as your data structure, the solution found by your DFS 
 
 DFS always return the left-most solution, not the optimal solution, that's what
 it's "doing wrong" (not getting the most optimal path).
+
+* Question 2 (3 points): Breadth First Search
+The only change we have to do to the algorithm from question 1 is to change the
+data structure that the fringe uses. Therefore, the solution was to just extract
+the search algorithm made in question 1 and parametrize the fringe's data
+structure. DFS uses a Stack and BFS uses a Queue.
+
+#+begin_quote
+Does BFS find a least cost solution?
+#+end_quote
+
+(I think this questions asks if *my* implementation of BFS finds a least cost
+solution. It does, but I think it's nice to add why BFS finds a LCS).
+
+Yes. A least cost solution in a graph where every edge has cost = 1 is, by
+definition, the solution with least amount of levels between the starting and
+destination nodes. As BFS searchs level-by-level, it's capable of finding the
+path with the least amount of levels in-between, which is a least-cost-solution.
+
+#+begin_quote
+Note: If you've written your search code generically, your code should work equally well for the eight-puzzle search problem without any changes.
+#+end_quote
+
+It does!
