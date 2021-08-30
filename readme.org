@@ -1,0 +1,25 @@
+#+TITLE: Berkeley Intro to AI
+
+Hello! This repository contains my notes and project solutions for UC Berkeley
+CS188 Intro to AI course. I'm not afflitated in anyway with that Berkeley or the
+course itself. I'm just interested in ML/AI and found the course really
+interesting and the material excellent.
+
+Relevant links:
+- Course page: http://ai.berkeley.edu
+- Course lectures: https://www.youtube.com/playlist?list=PLsOUugYMBBJENfZ3XAToMsg44W7LeUVhF
+
+I don't really liking watching lectures, so I first try doing the exercises and
+projects and when I feel stuck, I try watching the lectures to see what I'm
+missing. For me, this makes the lectures themselves way more interesting and I
+learn better the content.
+
+This is also the reason why sometimes you'll see somethings in my notes/answers
+that are repeated/obvious if you watch the lectures. Probably I wrote them before
+I watched the lectures.
+
+If you're interested, you can also browse though the commits. I try to make them
+as descriptive of my progress as possible.
+
+Notes list:
+- [[file:./search/notes.org]["Project 1: Search"]]
