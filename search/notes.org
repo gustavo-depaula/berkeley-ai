@@ -118,3 +118,23 @@ expanded nodes.
 The final optimization was normalizing the visited corners position in the
 state, so the order in which it had visited states didn't matter. After that, it
 works as expected, with just under 2k expanded nodes.
+
+* Question 6 (3 points): Corners Problem: Heuristic
+The first heuristic I came up with was to just return the closest corner's
+manhattan distance. It worked! It's admissible and consistent. But it expanded
+more than 1200 nodes.
+
+The second was to return the sum of all corners' manhattan distances. But it's a
+inadmissable and inconsistent, because it's pessimistic. Upon reaching one
+corner, the path to another might be really small.
+
+The third was a mixture of the other two, return the closest corner distance,
+and the distance from it and the closest corner to the closest corner. This is
+admissible and consistent, and the number of expanded nodes was ~900.
+
+The final is an improvement on the last one. Keep getting the closest corner
+to the closest corner until you reach all corners. Sum all of these distances
+and return it. It's admissible, consistent, and dropped the number to just
+under 700.
+
+The trade-off of the final heuristic is that it's more expensive to calculate.

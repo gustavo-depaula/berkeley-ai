@@ -429,11 +429,29 @@ def cornersHeuristic(state, problem):
     shortest path from the state to a goal of the problem; i.e.  it should be
     admissible (as well as consistent).
     """
+
+    def orderCornersByDistance(position, cornersLeft):
+        if not cornersLeft:
+            return []
+        distanceToCorners = [
+            util.manhattanDistance(position, corner) for corner in cornersLeft
+        ]
+        distanceToCloserCorner = min(distanceToCorners)
+        closestCornerIndex = distanceToCorners.index(distanceToCloserCorner)
+        closestCorner = cornersLeft[closestCornerIndex]
+        return [distanceToCloserCorner] + orderCornersByDistance(
+            closestCorner, [c for c in cornersLeft if c != closestCorner]
+        )
+
     corners = problem.corners  # These are the corner coordinates
     walls = problem.walls  # These are the walls of the maze, as a Grid (game.py)
 
-    "*** YOUR CODE HERE ***"
-    return 0  # Default to trivial solution
+    currentPosition, cornersVisited = state
+    cornersLeftToVisit = [c for c in corners if not c in cornersVisited]
+    if not cornersLeftToVisit:
+        return 0
+
+    return sum(orderCornersByDistance(currentPosition, cornersLeftToVisit))
 
 
 class AStarCornersAgent(SearchAgent):
