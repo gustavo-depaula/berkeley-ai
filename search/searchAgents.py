@@ -416,6 +416,20 @@ class CornersProblem(search.SearchProblem):
         return len(actions)
 
 
+def orderGoalsByDistance(position, goalsLeftLocations):
+    if not goalsLeftLocations:
+        return []
+    distanceToGoals = [
+        util.manhattanDistance(position, goal) for goal in goalsLeftLocations
+    ]
+    distanceToClosestGoal = min(distanceToGoals)
+    closestGoalIndex = distanceToGoals.index(distanceToClosestGoal)
+    closestGoal = goalsLeftLocations[closestGoalIndex]
+    return [distanceToClosestGoal] + orderGoalsByDistance(
+        closestGoal, [c for c in goalsLeftLocations if c != closestGoal]
+    )
+
+
 def cornersHeuristic(state, problem):
     """
     A heuristic for the CornersProblem that you defined.
@@ -430,19 +444,6 @@ def cornersHeuristic(state, problem):
     admissible (as well as consistent).
     """
 
-    def orderCornersByDistance(position, cornersLeft):
-        if not cornersLeft:
-            return []
-        distanceToCorners = [
-            util.manhattanDistance(position, corner) for corner in cornersLeft
-        ]
-        distanceToCloserCorner = min(distanceToCorners)
-        closestCornerIndex = distanceToCorners.index(distanceToCloserCorner)
-        closestCorner = cornersLeft[closestCornerIndex]
-        return [distanceToCloserCorner] + orderCornersByDistance(
-            closestCorner, [c for c in cornersLeft if c != closestCorner]
-        )
-
     corners = problem.corners  # These are the corner coordinates
     walls = problem.walls  # These are the walls of the maze, as a Grid (game.py)
 
@@ -451,7 +452,7 @@ def cornersHeuristic(state, problem):
     if not cornersLeftToVisit:
         return 0
 
-    return sum(orderCornersByDistance(currentPosition, cornersLeftToVisit))
+    return sum(orderGoalsByDistance(currentPosition, cornersLeftToVisit))
 
 
 class AStarCornersAgent(SearchAgent):
