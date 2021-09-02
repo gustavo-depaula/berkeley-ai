@@ -102,3 +102,19 @@ What happens on openMaze for the various search strategies?
 - DFS is the only one that doesn't find the optimal solution.
 - BFS and UCS explore the same amount of nodes.
 - A* finds the optimal solution but with fewer search nodes expanded.
+
+* Question 5 (3 points): Finding All the Corners
+This has been the trickiest one of all, until now. Finding the right modeling
+was hard. At first, I tried a state representation where the whole path was in
+the state, and it checked if the corners were in this long list of tuples. It
+expanded nodes like crazy and could never solve 4 corners in a good time. For 3
+corners, it expanded 44k+ nodes in the tiny map (!).
+
+The modelling that worked was just storing the corners which it had already
+found. So the state is modelled as (currentPosition, tupleOfVisitedCorners).
+This worked and it could find the solution for the medium map with ~2.4K
+expanded nodes.
+
+The final optimization was normalizing the visited corners position in the
+state, so the order in which it had visited states didn't matter. After that, it
+works as expected, with just under 2k expanded nodes.
