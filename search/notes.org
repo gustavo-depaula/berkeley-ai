@@ -138,3 +138,13 @@ and return it. It's admissible, consistent, and dropped the number to just
 under 700.
 
 The trade-off of the final heuristic is that it's more expensive to calculate.
+
+* Question 7 (4 points): Eating All The Dots
+My first try was to use the same heuristic I used in question 6. So I
+generalized the approach I used there into a separate function called
+`orderGoalsByDistance`. It works pretty well, it expands 7250 nodes in
+trickySearch.
+
+To further improve it, to pass the 7k threshold, I added a parameter to it to
+use mazeDistance (real distance) to improve the distance calculation to the
+estimated closest food. With this approach, it only expands 4655 nodes.

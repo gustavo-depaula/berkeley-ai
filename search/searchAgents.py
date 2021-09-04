@@ -416,7 +416,9 @@ class CornersProblem(search.SearchProblem):
         return len(actions)
 
 
-def orderGoalsByDistance(position, goalsLeftLocations):
+def orderGoalsByDistance(
+    position, goalsLeftLocations, useMazeDistance=False, gameState=None
+):
     if not goalsLeftLocations:
         return []
     distanceToGoals = [
@@ -425,8 +427,15 @@ def orderGoalsByDistance(position, goalsLeftLocations):
     distanceToClosestGoal = min(distanceToGoals)
     closestGoalIndex = distanceToGoals.index(distanceToClosestGoal)
     closestGoal = goalsLeftLocations[closestGoalIndex]
+
+    if useMazeDistance:
+        # if useMazeDistance is True, get a better estimation for closest goal
+        distanceToClosestGoal = mazeDistance(position, closestGoal, gameState)
+
     return [distanceToClosestGoal] + orderGoalsByDistance(
-        closestGoal, [c for c in goalsLeftLocations if c != closestGoal]
+        closestGoal,
+        [c for c in goalsLeftLocations if c != closestGoal],
+        useMazeDistance=False,
     )
 
 
@@ -559,9 +568,22 @@ def foodHeuristic(state, problem):
     Subsequent calls to this heuristic can access
     problem.heuristicInfo['wallCount']
     """
+
     position, foodGrid = state
-    "*** YOUR CODE HERE ***"
-    return 0
+    foodLocations = [
+        (index, row.index(True)) for index, row in enumerate(foodGrid) if True in row
+    ]
+    if not foodLocations:
+        return 0
+
+    return sum(
+        orderGoalsByDistance(
+            position,
+            foodLocations,
+            useMazeDistance=True,
+            gameState=problem.startingGameState,
+        )
+    )
 
 
 class ClosestDotSearchAgent(SearchAgent):
