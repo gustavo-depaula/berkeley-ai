@@ -162,3 +162,21 @@ _____________________
 #+end_src
 Going to the closest dot would result in Pacman zig-zagging, instead of just
 going all forward and backwards once.
+
+* Grades
+#+begin_quote
+> python autograder.py
+
+Provisional grades
+==================
+Question q1: 3/3
+Question q2: 3/3
+Question q3: 3/3
+Question q4: 3/3
+Question q5: 3/3
+Question q6: 3/3
+Question q7: 5/4
+Question q8: 3/3
+------------------
+Total: 26/25
+#+end_quote
