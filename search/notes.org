@@ -148,3 +148,17 @@ trickySearch.
 To further improve it, to pass the 7k threshold, I added a parameter to it to
 use mazeDistance (real distance) to improve the distance calculation to the
 estimated closest food. With this approach, it only expands 4655 nodes.
+* Question 8 (3 points): Suboptimal Search
+The simplest solution I could find was to:
+- in `isGoalState`, just look if the pacman's position contains a food
+- use a `ucs` search in `findPathToClosestDot`
+
+A small example where repeatedly going to the closest dot does not result in
+finding the shortest path for eating all the dots (P is pacman, * is food):
+#+begin_src
+_____________________
+|..*.......*.P*...*.|
+‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+#+end_src
+Going to the closest dot would result in Pacman zig-zagging, instead of just
+going all forward and backwards once.
